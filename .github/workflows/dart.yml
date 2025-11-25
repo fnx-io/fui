@@ -3,7 +3,6 @@ name: Build
 
 on:
   push:
-    # Trigger jen na vetvi 'main' (doporučeno místo 'master')
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
@@ -11,31 +10,29 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    # Nastavte pracovni adresar pro vsechny kroky v tomto jobu
     defaults:
       run:
         working-directory: fui
 
     steps:
       - uses: actions/checkout@v4
-
-      # 1. Nastaveni Dart SDK
       - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
 
-      # 2. Instalace zavislosti (v adresari 'fui')
       - name: Install dependencies (fui)
         run: dart pub get
 
-      # 3. Analyza a testy (zachovano z puvodni konfigurace)
       - name: Analyze project source
         run: dart analyze
 
       - name: Run tests
         run: dart test
 
-      # 4. Generovani dokumentace (v adresari 'fui')
       - name: Generate Dart Documentation
         run: dart doc .
+
+      - name: Create index
+        run: cp doc/index.html fui/doc/index.html
+        working-directory: /
 
       # 5. Ulozeni vygenerovane dokumentace jako artefakt
       # Dokumentace se vytvori ve fui/doc/
