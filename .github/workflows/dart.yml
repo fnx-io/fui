@@ -34,10 +34,8 @@ jobs:
       - name: Create index
         run: cp doc/index.html fui/doc/index.html
 
-      # 5. Ulozeni vygenerovane dokumentace jako artefakt
-      # Dokumentace se vytvori ve fui/doc/
       - name: Upload documentation artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
           name: dart-doc-output
           path: fui/doc
