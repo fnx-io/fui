@@ -1,10 +1,10 @@
 # .github/workflows/dart.yml
-name: Dart CI and Documentation Deployment
+name: Build
 
 on:
   push:
     # Trigger jen na vetvi 'main' (doporučeno místo 'master')
-    branches: [ "main" ] 
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      
+
       # 1. Nastaveni Dart SDK
       - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
 
@@ -46,7 +46,7 @@ jobs:
           path: fui/doc
           # Ulozi artefakt na 5 minut, nez ho deploy job stahne
           retention-days: 1
-  
+
   # NOVY JOB pro nasazeni na GitHub Pages
   deploy:
     # Spusti se az po uspesnem dokonceni jobu 'build'
@@ -67,7 +67,7 @@ jobs:
         with:
           name: dart-doc-output
           path: doc_to_deploy
-          
+
       # 2. Nastaveni GitHub Pages pro nasazeni
       - name: Setup Pages
         uses: actions/configure-pages@v4

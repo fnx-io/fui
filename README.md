@@ -1,6 +1,8 @@
 # fui
 FNX UI Toolkit for Jaspr
 
+[![Build](https://github.com/fnx-io/fui/actions/workflows/dart.yml/badge.svg)](https://github.com/fnx-io/fui/actions/workflows/dart.yml)
+
 ## Setup
 
 To ensure the components render correctly, you must include the stylesheet in your project. Add the following line to the `<head>` section of your `web/index.html`:
