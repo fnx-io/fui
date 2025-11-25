@@ -25,5 +25,12 @@ doc/api/
 *.js.deps
 *.js.map
 
+# Ignore IntelliJ related files
+*.iml
+.idea/
+*.iws
+
 .flutter-plugins
 .flutter-plugins-dependencies
+
+custom_lint.log

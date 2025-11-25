@@ -1,0 +1,67 @@
+// This also exports 'package:test' so no need for an additional import.
+// Import the component to test.
+import 'package:fui/fui.dart';
+import 'package:jaspr/jaspr.dart';
+import 'package:jaspr_test/jaspr_test.dart';
+
+void main() {
+  group('FuiHorizontalLayout conditional rendering', () {
+    testComponents('renders all sections when provided', (tester) async {
+      tester.pumpComponent(
+        FuiHorizontalLayout(
+          left: text('L'),
+          main: text('M'),
+          right: text('R'),
+        ),
+      );
+      expect(find.tag('section'), findsOneComponent);
+      expect(find.tag('main'), findsOneComponent);
+      expect(find.tag('aside'), findsNComponents(2));
+    });
+
+    testComponents('renders only main when only main is provided', (tester) async {
+      tester.pumpComponent(
+        FuiHorizontalLayout(
+          main: text('Main only'),
+        ),
+      );
+
+      expect(find.tag('section'), findsOneComponent);
+      expect(find.tag('main'), findsOneComponent);
+      expect(find.tag('aside'), findsNothing);
+    });
+
+    testComponents('renders left + main when right is null', (tester) async {
+      tester.pumpComponent(
+        FuiHorizontalLayout(
+          left: text('L'),
+          main: text('M'),
+        ),
+      );
+      expect(find.tag('section'), findsOneComponent);
+      expect(find.tag('aside'), findsOneComponent);
+      expect(find.tag('main'), findsOneComponent);
+    });
+
+    testComponents('renders main + right when left is null', (tester) async {
+      tester.pumpComponent(
+        FuiHorizontalLayout(
+          main: text('M'),
+          right: text('R'),
+        ),
+      );
+      expect(find.tag('section'), findsOneComponent);
+      expect(find.tag('main'), findsOneComponent);
+      expect(find.tag('aside'), findsOneComponent);
+    });
+
+    testComponents('renders no left/main/right when all are null', (tester) async {
+      tester.pumpComponent(
+        const FuiHorizontalLayout(),
+      );
+      expect(find.tag('section'), findsOneComponent);
+      expect(find.tag('aside'), findsNothing);
+      expect(find.tag('main'), findsNothing);
+    });
+  });
+}

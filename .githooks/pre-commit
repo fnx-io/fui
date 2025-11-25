@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+# Pre-commit hook for Dart/Jaspr module "fui"
+# - Formats code (dart format)
+# - Applies automated fixes (dart fix --apply)
+# - Analyzes the code (dart analyze)
+# - Runs tests (dart test)
+# If format/fix modify files, they are automatically re-staged.
+# Skip with: git commit --no-verify
+
+set -euo pipefail
+
+# Ensure we run from repo root
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT/fui"
+
+# Only proceed if Dart is available
+if ! command -v dart >/dev/null 2>&1; then
+  echo "[pre-commit] ERROR: 'dart' command not found in PATH." >&2
+  echo "Install Dart SDK or activate your environment, then try again." >&2
+  exit 1
+fi
+
+# Optionally ensure dependencies are fetched if .dart_tool is missing
+if [ ! -d ".dart_tool" ]; then
+  echo "[pre-commit] First run in this repo: fetching packages (dart pub get) ..."
+  dart pub get
+fi
+
+# Format
+echo "[pre-commit] Running: dart format ."
+dart format . >/dev/null
+if ! git diff --quiet -- . ':!pubspec.lock'; then
+  echo "[pre-commit] Formatting changed files. Re-staging ..."
+  git add -A
+fi
+
+# Apply automated fixes
+echo "[pre-commit] Running: dart fix --apply"
+dart fix --apply >/dev/null
+if ! git diff --quiet -- . ':!pubspec.lock'; then
+  echo "[pre-commit] Dart fix changed files. Re-staging ..."
+  git add -A
+fi
+
+# Analyze
+echo "[pre-commit] Running: dart analyze"
+# Show analyzer output; fail on issues
+if ! dart analyze; then
+  echo "[pre-commit] Analyzer reported issues. Fix them or commit with --no-verify if intentional." >&2
+  exit 1
+fi
+
+# Tests (module "fui" is this repository root)
+echo "[pre-commit] Running: dart test"
+if ! dart test; then
+  echo "[pre-commit] Tests failed. Fix tests or commit with --no-verify if intentional." >&2
+  exit 1
+fi
+
+echo "[pre-commit] OK ✅"
