@@ -10,9 +10,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: fui
 
     steps:
       - uses: actions/checkout@v4
@@ -20,19 +17,22 @@ jobs:
 
       - name: Install dependencies (fui)
         run: dart pub get
+        working-directory: fui
 
       - name: Analyze project source
         run: dart analyze
+        working-directory: fui
 
       - name: Run tests
         run: dart test
+        working-directory: fui
 
       - name: Generate Dart Documentation
         run: dart doc .
+        working-directory: fui
 
       - name: Create index
         run: cp doc/index.html fui/doc/index.html
-        working-directory: /
 
       # 5. Ulozeni vygenerovane dokumentace jako artefakt
       # Dokumentace se vytvori ve fui/doc/
