@@ -4,9 +4,9 @@ name: Build
 on:
   push:
     # Trigger jen na vetvi 'main' (doporučeno místo 'master')
-    branches: [ "main" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 jobs:
   build:
