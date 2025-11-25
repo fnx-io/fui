@@ -77,6 +77,4 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
         with:
-          # Cesta k souborum, ktere se maji nasadit (stazeny artefakt)
-          # Pozor: 'doc' se stahne do 'doc_to_deploy/'
-          artifact_path: doc_to_deploy
+          artifact_name: dart-doc-output
