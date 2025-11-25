@@ -1,0 +1,82 @@
+# .github/workflows/dart.yml
+name: Dart CI and Documentation Deployment
+
+on:
+  push:
+    # Trigger jen na vetvi 'main' (doporučeno místo 'master')
+    branches: [ "main" ] 
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # Nastavte pracovni adresar pro vsechny kroky v tomto jobu
+    defaults:
+      run:
+        working-directory: fui
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      # 1. Nastaveni Dart SDK
+      - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
+
+      # 2. Instalace zavislosti (v adresari 'fui')
+      - name: Install dependencies (fui)
+        run: dart pub get
+
+      # 3. Analyza a testy (zachovano z puvodni konfigurace)
+      - name: Analyze project source
+        run: dart analyze
+
+      - name: Run tests
+        run: dart test
+
+      # 4. Generovani dokumentace (v adresari 'fui')
+      - name: Generate Dart Documentation
+        run: dart doc .
+
+      # 5. Ulozeni vygenerovane dokumentace jako artefakt
+      # Dokumentace se vytvori ve fui/doc/
+      - name: Upload documentation artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dart-doc-output
+          path: fui/doc
+          # Ulozi artefakt na 5 minut, nez ho deploy job stahne
+          retention-days: 1
+  
+  # NOVY JOB pro nasazeni na GitHub Pages
+  deploy:
+    # Spusti se az po uspesnem dokonceni jobu 'build'
+    needs: build
+    # Umozni deployovat na GitHub Pages
+    permissions:
+      pages: write      # Povoluje zapis na GitHub Pages
+      id-token: write   # Povoluje autentizaci
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Stahnuti artefaktu (dokumentace) z predchoziho jobu
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dart-doc-output
+          path: doc_to_deploy
+          
+      # 2. Nastaveni GitHub Pages pro nasazeni
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      # 3. Nasazeni dokumentace na Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          # Cesta k souborum, ktere se maji nasadit (stazeny artefakt)
+          # Pozor: 'doc' se stahne do 'doc_to_deploy/'
+          artifact_path: doc_to_deploy
