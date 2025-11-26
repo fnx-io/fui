@@ -16,7 +16,7 @@ part of '../fui.dart';
 /// ```dart
 /// FuiVerticalLayout(
 ///   header: MyTopBar(),
-///   main: const MyLongTable(),
+///   main: const [MyLongTable()],
 ///   footer: const MyCopyrightNotice(),
 /// )
 /// ```
@@ -24,17 +24,20 @@ class FuiVerticalLayout extends StatelessComponent {
   /// Optional component placed in the `<header>` element; typically a top bar or navigation.
   final Component? header;
 
-  /// Main content placed inside the `<main>` element. This section expands and is scrollable. To avoid scrolling, give it 'absolute inset-0' styling.
-  final Component? main;
+  /// Main content placed inside the `<main>` element. This section expands and is scrollable. To avoid scrolling, use one children and give it 'absolute inset-0' classes.
+  final List<Component> main;
 
   /// Optional component placed in the `<footer>` element; e.g., a status bar.
   final Component? footer;
 
+  final String classes;
+
   /// Creates a new vertical layout.
   ///
-  /// The [header], [main], and [footer] parameters define the individual sections.
-  /// Each is optional and, when `null`, the respective section is not rendered.
-  const FuiVerticalLayout({super.key, this.header, this.main, this.footer});
+  /// The [main] parameter defines the primary content and is required as a list
+  /// of components. The [header] and [footer] parameters are optional; when `null`,
+  /// their respective sections are not rendered.
+  const FuiVerticalLayout({super.key, this.header, required this.main, this.footer, this.classes = ''});
 
   /// Sestaví strom komponent s kořenovým `<section>` obsahujícím `<header>`,
   /// `<main>` a `<footer>` podle dostupnosti vstupních komponent.
@@ -42,7 +45,7 @@ class FuiVerticalLayout extends StatelessComponent {
   Component build(BuildContext context) {
     return section(classes: 'absolute inset-0 flex flex-col', [
       if (header != null) jaspr.header([header!], classes: 'w-full flex-grow-0 flex-shrink-0 overflow-hidden relative'),
-      if (main != null) main_([main!], classes: 'w-full flex-grow flex-shrink overflow-auto relative'),
+      main_(main, classes: 'w-full flex-grow flex-shrink overflow-auto relative'),
       if (footer != null) jaspr.footer([footer!], classes: 'w-full flex-grow-0 flex-shrink-0 overflow-hidden relative'),
     ]);
   }

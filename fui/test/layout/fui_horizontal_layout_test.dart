@@ -10,7 +10,7 @@ void main() {
       tester.pumpComponent(
         FuiHorizontalLayout(
           left: text('L'),
-          main: text('M'),
+          main: [text('M')],
           right: text('R'),
         ),
       );
@@ -22,7 +22,7 @@ void main() {
     testComponents('renders only main when only main is provided', (tester) async {
       tester.pumpComponent(
         FuiHorizontalLayout(
-          main: text('Main only'),
+          main: [text('Main only')],
         ),
       );
 
@@ -35,7 +35,7 @@ void main() {
       tester.pumpComponent(
         FuiHorizontalLayout(
           left: text('L'),
-          main: text('M'),
+          main: [text('M')],
         ),
       );
       expect(find.tag('section'), findsOneComponent);
@@ -46,7 +46,7 @@ void main() {
     testComponents('renders main + right when left is null', (tester) async {
       tester.pumpComponent(
         FuiHorizontalLayout(
-          main: text('M'),
+          main: [text('M')],
           right: text('R'),
         ),
       );
@@ -55,13 +55,13 @@ void main() {
       expect(find.tag('aside'), findsOneComponent);
     });
 
-    testComponents('renders no left/main/right when all are null', (tester) async {
+    testComponents('renders only empty main when no side panels and empty main list', (tester) async {
       tester.pumpComponent(
-        const FuiHorizontalLayout(),
+        const FuiHorizontalLayout(main: []),
       );
       expect(find.tag('section'), findsOneComponent);
       expect(find.tag('aside'), findsNothing);
-      expect(find.tag('main'), findsNothing);
+      expect(find.tag('main'), findsOneComponent);
     });
   });
 }

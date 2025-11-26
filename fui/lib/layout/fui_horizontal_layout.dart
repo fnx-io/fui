@@ -16,7 +16,7 @@ part of '../fui.dart';
 /// ```dart
 /// FuiHorizontalLayout(
 ///   left: MySidebar(),
-///   main: const MyContent(),
+///   main: const [MyContent()],
 ///   right: const MyInspector(),
 /// )
 /// ```
@@ -24,17 +24,20 @@ class FuiHorizontalLayout extends StatelessComponent {
   /// Optional component placed in the left `<aside>`; typically a sidebar or navigation.
   final Component? left;
 
-  /// Main content placed inside the `<main>` element. This section expands and is scrollable. To avoid scrolling, give it 'absolute inset-0' styling.
-  final Component? main;
+  /// Main content placed inside the `<main>` element. This section expands and is scrollable. To avoid scrolling, use one children and give it 'absolute inset-0' classes.
+  final List<Component> main;
 
   /// Optional component placed in the right `<aside>`; e.g., details or an inspector.
   final Component? right;
 
+  final String classes;
+
   /// Creates a new horizontal layout.
   ///
-  /// The [left], [main], and [right] parameters define the individual sections.
-  /// Each is optional and, when `null`, the respective section is not rendered.
-  const FuiHorizontalLayout({super.key, this.left, this.main, this.right});
+  /// The [main] parameter defines the primary content and is required as a list
+  /// of components. The [left] and [right] parameters are optional; when `null`,
+  /// their respective side sections are not rendered.
+  const FuiHorizontalLayout({super.key, this.left, required this.main, this.right, this.classes = ''});
 
   /// Builds a component tree with a root `<section>` containing `<aside>`,
   /// `<main>`, and `<aside>` (for the right panel) based on which components are provided.
@@ -42,7 +45,7 @@ class FuiHorizontalLayout extends StatelessComponent {
   Component build(BuildContext context) {
     return section(classes: 'absolute inset-0 flex flex-row', [
       if (left != null) jaspr.aside([left!], classes: 'h-full flex-grow-0 flex-shrink-0 overflow-hidden relative'),
-      if (main != null) main_([main!], classes: 'h-full flex-grow flex-shrink overflow-auto relative'),
+      main_(main, classes: 'h-full flex-grow flex-shrink overflow-auto relative'),
       if (right != null) jaspr.aside([right!], classes: 'h-full flex-grow-0 flex-shrink-0 overflow-hidden relative'),
     ]);
   }

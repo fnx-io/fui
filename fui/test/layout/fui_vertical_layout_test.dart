@@ -10,7 +10,7 @@ void main() {
       tester.pumpComponent(
         FuiVerticalLayout(
           header: text('H'),
-          main: text('M'),
+          main: [text('M')],
           footer: text('F'),
         ),
       );
@@ -23,7 +23,7 @@ void main() {
     testComponents('renders only main when only main is provided', (tester) async {
       tester.pumpComponent(
         FuiVerticalLayout(
-          main: text('Main only'),
+          main: [text('Main only')],
         ),
       );
 
@@ -37,7 +37,7 @@ void main() {
       tester.pumpComponent(
         FuiVerticalLayout(
           header: text('H'),
-          main: text('M'),
+          main: [text('M')],
         ),
       );
       expect(find.tag('section'), findsOneComponent);
@@ -49,7 +49,7 @@ void main() {
     testComponents('renders main + footer when header is null', (tester) async {
       tester.pumpComponent(
         FuiVerticalLayout(
-          main: text('M'),
+          main: [text('M')],
           footer: text('F'),
         ),
       );
@@ -59,13 +59,13 @@ void main() {
       expect(find.tag('header'), findsNothing);
     });
 
-    testComponents('renders no header/main/footer when all are null', (tester) async {
+    testComponents('renders only empty main when no header/footer and empty main list', (tester) async {
       tester.pumpComponent(
-        const FuiVerticalLayout(),
+        const FuiVerticalLayout(main: []),
       );
       expect(find.tag('section'), findsOneComponent);
       expect(find.tag('header'), findsNothing);
-      expect(find.tag('main'), findsNothing);
+      expect(find.tag('main'), findsOneComponent);
       expect(find.tag('footer'), findsNothing);
     });
   });

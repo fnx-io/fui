@@ -5,6 +5,10 @@
     --spacing: 4px;
     --color-primary: #3490dc;
     --color-secondary: #ffed4a;
+
+    --fui-elevation: 3px;
+    --fui-elevation-light: rgba(255,255,255,0.6);
+    --fui-elevation-dark: rgba(0,0,0,0.3);
 }
 
 @layer base {
@@ -27,33 +31,32 @@
     }
 
     .fui-elevate-0 {
-        box-shadow:  1px 1px 1px rgb(0,0,0,0.5),
-        -1px -1px 1px rgba(255,255,255,0.5);
+        box-shadow:  1px 1px 1px var(--fui-elevation-dark),
+        -1px -1px 1px var(--fui-elevation-light);
     }
-
     .fui-elevate-1 {
-        box-shadow:  2px 2px 4px rgb(0,0,0,0.5),
-        -2px -2px 2px rgba(255,255,255,0.5);
+        box-shadow:  calc(1 * var(--fui-elevation)) calc(1 * var(--fui-elevation)) var(--fui-elevation) var(--fui-elevation-dark),
+        -2px -2px 2px var(--fui-elevation-light);
     }
-
     .fui-elevate-2 {
-        box-shadow:  4px 4px 4px rgb(0,0,0,0.5),
-        -2px -2px 2px rgba(255,255,255,0.5);
+        box-shadow:  calc(2 * var(--fui-elevation)) calc(2 * var(--fui-elevation)) var(--fui-elevation) var(--fui-elevation-dark),
+        -2px -2px 2px var(--fui-elevation-light);
     }
-
     .fui-elevate-3 {
-        box-shadow:  6px 6px 4px rgb(0,0,0,0.5),
-        -2px -2px 2px rgba(255,255,255,0.5);
+        box-shadow:  calc(3 * var(--fui-elevation)) calc(3 * var(--fui-elevation)) var(--fui-elevation) var(--fui-elevation-dark),
+        -2px -2px 2px var(--fui-elevation-light);
     }
-
-    .fui-elevate-4 {
-        box-shadow:  8px 8px 4px rgb(0,0,0,0.5),
-        -2px -2px 2px rgba(255,255,255,0.5);
+    .fui-sink-1 {
+        box-shadow: inset calc(1 * var(--fui-elevation)) calc(1 * var(--fui-elevation)) var(--fui-elevation) var(--fui-elevation-dark),
+        inset -2px -2px 2px var(--fui-elevation-light);
     }
-
-    .fui-elevate-5 {
-        box-shadow:  10px 10px 4px rgb(0,0,0,0.5),
-        -2px -2px 2px rgba(255,255,255,0.5);
+    .fui-sink-2 {
+        box-shadow: inset calc(2 * var(--fui-elevation)) calc(2 * var(--fui-elevation)) var(--fui-elevation) var(--fui-elevation-dark),
+        inset -2px -2px 2px var(--fui-elevation-light);
+    }
+    .fui-sink-3 {
+        box-shadow: inset calc(3 * var(--fui-elevation)) calc(3 * var(--fui-elevation)) var(--fui-elevation) var(--fui-elevation-dark),
+        inset -2px -2px 2px var(--fui-elevation-light);
     }
 
 }
