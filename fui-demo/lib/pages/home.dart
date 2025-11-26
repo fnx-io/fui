@@ -24,6 +24,12 @@ class Home extends StatelessComponent {
   }
 
   Component? buildContent(BuildContext context) {
-    return text("Hello World");
+    return div(
+      List.generate(
+        5,
+        (index) => FuiCard([text("Hojda! $index")], classes: "w-50 my-10 p-5", elevation: index),
+      ),
+      classes: "p-50 bg-gray-200 h-full",
+    );
   }
 }
