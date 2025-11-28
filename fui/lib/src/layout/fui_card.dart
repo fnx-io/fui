@@ -1,4 +1,4 @@
-part of '../fui.dart';
+import 'package:jaspr/jaspr.dart';
 
 /// A simple card container component.
 ///

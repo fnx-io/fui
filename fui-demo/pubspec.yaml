@@ -9,6 +9,7 @@ environment:
 dependencies:
   jaspr: ^0.21.7
   jaspr_router: ^0.8.0
+  jaspr_icons: ^2.2.0
   fui:
     path: ../fui
 

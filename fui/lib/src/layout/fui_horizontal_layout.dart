@@ -1,4 +1,5 @@
-part of '../fui.dart';
+import 'package:jaspr/jaspr.dart' as jaspr;
+import 'package:jaspr/jaspr.dart';
 
 /// Horizontal layout with optional `left`, `main`, and `right` sections.
 ///

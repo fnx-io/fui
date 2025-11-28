@@ -3,60 +3,73 @@
 
 @theme {
     --spacing: 4px;
-    --color-primary: #3490dc;
-    --color-secondary: #ffed4a;
 
     --fui-elevation: 3px;
-    --fui-elevation-light: rgba(255,255,255,0.6);
+    --fui-elevation-light: rgba(255,255,255,1);
     --fui-elevation-dark: rgba(0,0,0,0.3);
-}
 
+    --color-page: #F6F8FD;
+    --color-app: #ccdbfd;
+    --color-light: color-mix(in srgb, var(--color-app) 50%, var(--color-page) 50%);
+    --color-accent: #abc4ff;
+    --color-font: #222222;
+    --color-divider: #777777;
+}
 @layer base {
-    /* Základní styly pro tělo dokumentu typu "aplikace".*/
-    body, html {
-        @apply p-0 m-0 box-border w-full h-full relative
+    body {
+        @apply p-0 m-0 box-border size-full
+    }
+    body {
+        @apply p-0 m-0 w-full size-full relative bg-page text-font
     }
 }
 
 /* Příklad definice vlastních tříd */
 @layer components {
+    .fui-icon {
+        @apply size-5 inline-block;
+    }
+    .fui-menu_detail[open] > summary > .fui-icon:last-of-type {
+        @apply rotate-90 duration-300;
+    }
+    .fui-hill {
+        background: linear-gradient(180deg, rgba(255,255,255,0.3) 0, transparent 20%, transparent 80%, rgba(0,0,0,0.1) 100%);
+    }
+}
+@utility fui-elevate-0 {
+    transition: box-shadow 0.1s ease-in-out;
+    box-shadow:  1px 1px 1px var(--fui-elevation-dark),
+    -1px -1px 1px var(--fui-elevation-light);
+}
+@utility fui-elevate-1 {
+    transition: box-shadow 0.1s ease-in-out;
+    box-shadow:  calc(1 * var(--fui-elevation)) calc(1 * var(--fui-elevation)) var(--fui-elevation) var(--fui-elevation-dark),
+    -2px -2px 2px var(--fui-elevation-light);
+}
+@utility fui-elevate-2 {
+    transition: box-shadow 0.1s ease-in-out;
+    box-shadow:  calc(2 * var(--fui-elevation)) calc(2 * var(--fui-elevation)) var(--fui-elevation) var(--fui-elevation-dark),
+    -2px -2px 2px var(--fui-elevation-light);
+}
+@utility fui-elevate-3 {
+    transition: box-shadow 0.1s ease-in-out;
+    box-shadow:  calc(3 * var(--fui-elevation)) calc(3 * var(--fui-elevation)) var(--fui-elevation) var(--fui-elevation-dark),
+    -2px -2px 2px var(--fui-elevation-light);
+}
 
-    /* Zde definujte svou vlastní třídu pomocí @apply */
-    .my-app-card {
-        @apply bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 ease-in-out;
-    }
-
-    .my-app-card h2 {
-        @apply text-xl font-bold mb-2 text-gray-800;
-    }
-
-    .fui-elevate-0 {
-        box-shadow:  1px 1px 1px var(--fui-elevation-dark),
-        -1px -1px 1px var(--fui-elevation-light);
-    }
-    .fui-elevate-1 {
-        box-shadow:  calc(1 * var(--fui-elevation)) calc(1 * var(--fui-elevation)) var(--fui-elevation) var(--fui-elevation-dark),
-        -2px -2px 2px var(--fui-elevation-light);
-    }
-    .fui-elevate-2 {
-        box-shadow:  calc(2 * var(--fui-elevation)) calc(2 * var(--fui-elevation)) var(--fui-elevation) var(--fui-elevation-dark),
-        -2px -2px 2px var(--fui-elevation-light);
-    }
-    .fui-elevate-3 {
-        box-shadow:  calc(3 * var(--fui-elevation)) calc(3 * var(--fui-elevation)) var(--fui-elevation) var(--fui-elevation-dark),
-        -2px -2px 2px var(--fui-elevation-light);
-    }
-    .fui-sink-1 {
-        box-shadow: inset calc(1 * var(--fui-elevation)) calc(1 * var(--fui-elevation)) var(--fui-elevation) var(--fui-elevation-dark),
-        inset -2px -2px 2px var(--fui-elevation-light);
-    }
-    .fui-sink-2 {
-        box-shadow: inset calc(2 * var(--fui-elevation)) calc(2 * var(--fui-elevation)) var(--fui-elevation) var(--fui-elevation-dark),
-        inset -2px -2px 2px var(--fui-elevation-light);
-    }
-    .fui-sink-3 {
-        box-shadow: inset calc(3 * var(--fui-elevation)) calc(3 * var(--fui-elevation)) var(--fui-elevation) var(--fui-elevation-dark),
-        inset -2px -2px 2px var(--fui-elevation-light);
-    }
-
+@utility fui-sink-0 {
+    box-shadow: inset 1px 1px 1px var(--fui-elevation-dark),
+    inset -1px -1px 1px var(--fui-elevation-light);
+}
+@utility fui-sink-1 {
+    box-shadow: inset calc(1 * var(--fui-elevation)) calc(1 * var(--fui-elevation)) var(--fui-elevation) var(--fui-elevation-dark),
+    inset -2px -2px 2px var(--fui-elevation-light);
+}
+@utility fui-sink-2 {
+    box-shadow: inset calc(2 * var(--fui-elevation)) calc(2 * var(--fui-elevation)) var(--fui-elevation) var(--fui-elevation-dark),
+    inset -2px -2px 2px var(--fui-elevation-light);
+}
+@utility fui-sink-3 {
+    box-shadow: inset calc(3 * var(--fui-elevation)) calc(3 * var(--fui-elevation)) var(--fui-elevation) var(--fui-elevation-dark),
+    inset -2px -2px 2px var(--fui-elevation-light);
 }
