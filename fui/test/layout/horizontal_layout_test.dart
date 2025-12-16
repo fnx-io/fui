@@ -5,10 +5,10 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_test/jaspr_test.dart';
 
 void main() {
-  group('FuiHorizontalLayout conditional rendering', () {
+  group('HorizontalLayout conditional rendering', () {
     testComponents('renders all sections when provided', (tester) async {
       tester.pumpComponent(
-        FuiHorizontalLayout(
+        HorizontalLayout(
           left: text('L'),
           main: [text('M')],
           right: text('R'),
@@ -21,7 +21,7 @@ void main() {
 
     testComponents('renders only main when only main is provided', (tester) async {
       tester.pumpComponent(
-        FuiHorizontalLayout(
+        HorizontalLayout(
           main: [text('Main only')],
         ),
       );
@@ -33,7 +33,7 @@ void main() {
 
     testComponents('renders left + main when right is null', (tester) async {
       tester.pumpComponent(
-        FuiHorizontalLayout(
+        HorizontalLayout(
           left: text('L'),
           main: [text('M')],
         ),
@@ -45,7 +45,7 @@ void main() {
 
     testComponents('renders main + right when left is null', (tester) async {
       tester.pumpComponent(
-        FuiHorizontalLayout(
+        HorizontalLayout(
           main: [text('M')],
           right: text('R'),
         ),
@@ -57,7 +57,7 @@ void main() {
 
     testComponents('renders only empty main when no side panels and empty main list', (tester) async {
       tester.pumpComponent(
-        const FuiHorizontalLayout(main: []),
+        const HorizontalLayout(main: []),
       );
       expect(find.tag('section'), findsOneComponent);
       expect(find.tag('aside'), findsNothing);

@@ -13,7 +13,7 @@
     --color-light: color-mix(in srgb, var(--color-app) 50%, var(--color-page) 50%);
     --color-accent: #abc4ff;
     --color-font: #222222;
-    --color-divider: #777777;
+    --color-divider: #bbbbbb;
 }
 @layer base {
     body {
@@ -22,14 +22,33 @@
     body {
         @apply p-0 m-0 w-full size-full relative bg-page text-font
     }
+    button {
+        @apply cursor-pointer;
+    }
+    * {
+        @apply disabled:opacity-50 disabled:cursor-not-allowed
+    }
+    .disabled {
+        @apply opacity-50 cursor-not-allowed;
+    }
+    summary {
+        list-style: none; /* Důležité pro pokrytí chování odrážky */
+    }
+    summary::-webkit-details-marker {
+        display: none;
+    }
+    summary::marker {
+        display: none;
+    }
 }
-
-/* Příklad definice vlastních tříd */
 @layer components {
     .fui-icon {
         @apply size-5 inline-block;
     }
-    .fui-menu_detail[open] > summary > .fui-icon:last-of-type {
+    .fui-icon svg {
+        @apply size-5;
+    }
+    .fui-menu_detail[open] > summary .fui-icon:last-of-type {
         @apply rotate-90 duration-300;
     }
     .fui-hill {

@@ -2,7 +2,7 @@ import 'package:jaspr/jaspr.dart';
 
 /// A simple card container component.
 ///
-/// `FuiCard` renders a `div` with a rounded border and an elevation class
+/// `Card` renders a `div` with a rounded border and an elevation class
 /// that controls its visual depth (shadow). You can also pass additional
 /// CSS classes via [classes] and its child components via [children].
 ///
@@ -14,11 +14,11 @@ import 'package:jaspr/jaspr.dart';
 ///
 /// Example:
 /// ```dart
-/// FuiCard([
+/// Card([
 ///   text('Card content'),
 /// ], elevation: 2, classes: 'p-2');
 /// ```
-class FuiCard extends StatelessComponent {
+class Card extends StatelessComponent {
   /// Visual depth level for the card (0–3). See class docs for details.
   final int elevation;
 
@@ -28,11 +28,11 @@ class FuiCard extends StatelessComponent {
   /// Children rendered inside the card.
   final List<Component> children;
 
-  /// Creates a new [FuiCard].
+  /// Creates a new [Card].
   ///
   /// The [elevation] must be between 0 and 3 (inclusive). In debug mode,
   /// an assertion error is thrown when the given elevation is out of range.
-  const FuiCard(this.children, {super.key, this.elevation = 1, this.classes = ''});
+  const Card(this.children, {super.key, this.elevation = 1, this.classes = ''});
 
   @override
   // Nullable BuildContext is here for unit test purposes.

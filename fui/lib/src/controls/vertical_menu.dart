@@ -1,12 +1,12 @@
 import 'package:fui/fui.dart';
-import 'package:fui/src/core/fui_icons.dart';
+import 'package:fui/src/core/icons.dart';
 import 'package:jaspr/jaspr.dart';
 
-class FuiMenu extends StatelessComponent {
+class VerticalMenu extends StatelessComponent {
   final List<Action> items;
   final String classes;
 
-  const FuiMenu({super.key, required this.items, this.classes = ''});
+  const VerticalMenu({super.key, required this.items, this.classes = ''});
 
   @override
   Component build(BuildContext context) {
@@ -21,29 +21,32 @@ class FuiMenu extends StatelessComponent {
     bool hasChildren = item.children.isNotEmpty;
     if (hasChildren) {
       return li(
-        classes: '[&_summary::-webkit-details-marker]:hidden',
+        classes: '',
         [
           details(
             classes: "fui-menu_detail",
             [
               summary(
                 [
-                  ...Label.buildLabel(item.label),
-                  span([
-                    FuiIcons.moreChevron(),
-                  ], classes: 'fui-icon shrink-0 transition duration-300'),
+                  item.render(
+                    "",
+                    DisplayBase.block,
+                    extraContent: [
+                      span([Icons.moreChevron()], classes: "fui-icon ml-1 "),
+                    ],
+                  ),
                 ],
-                classes: 'cursor-pointer rounded-lg hover:bg-light ' + Label.parentClass(DisplayBase.block),
+                classes: 'cursor-pointer rounded-l hover:bg-light ',
               ),
-              FuiMenu(items: item.children, classes: 'ml-7'),
+              VerticalMenu(items: item.children, classes: 'ml-7'),
             ],
           ),
         ],
       );
     } else {
       return li(
-        Action.buildAction(item),
-        classes: "rounded-lg px-4 py-2 hover:bg-app" + Label.parentClass(DisplayBase.block),
+        [item.render("", DisplayBase.block)],
+        classes: "rounded-l hover:bg-light ",
       );
     }
   }

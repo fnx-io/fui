@@ -1,6 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 
-class FuiIcons {
+class Icons {
   static Component moreDots() {
     return svg(
       [

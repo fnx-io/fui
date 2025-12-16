@@ -3,4 +3,16 @@
 // text-app text-accent text-danger text-warning text-info text-light
 enum Variant { neutral, app, light, accent, danger, warning, info }
 
-enum DisplayBase { block, inline }
+enum DisplayBase {
+  block,
+  inline;
+
+  String asFlex() {
+    switch (this) {
+      case DisplayBase.block:
+        return 'flex';
+      case DisplayBase.inline:
+        return 'inline-flex';
+    }
+  }
+}

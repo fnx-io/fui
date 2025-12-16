@@ -10,18 +10,18 @@ import 'package:jaspr/jaspr.dart';
 /// - The component expects its parent to be positioned (absolute/relative) and fills all available space using `absolute inset-0`.
 /// - `main` has `overflow-auto` so its content scrolls automatically. `left` and
 ///   `right` have `overflow-hidden`.
-/// - Each section is positioned `relative` to allow absolute positioning of children (e.g., nested [FuiVerticalLayout]).
+/// - Each section is positioned `relative` to allow absolute positioning of children (e.g., nested [VerticalLayout]).
 ///
 /// Example usage:
 ///
 /// ```dart
-/// FuiHorizontalLayout(
+/// HorizontalLayout(
 ///   left: MySidebar(),
 ///   main: const [MyContent()],
 ///   right: const MyInspector(),
 /// )
 /// ```
-class FuiHorizontalLayout extends StatelessComponent {
+class HorizontalLayout extends StatelessComponent {
   /// Optional component placed in the left `<aside>`; typically a sidebar or navigation.
   final Component? left;
 
@@ -38,16 +38,16 @@ class FuiHorizontalLayout extends StatelessComponent {
   /// The [main] parameter defines the primary content and is required as a list
   /// of components. The [left] and [right] parameters are optional; when `null`,
   /// their respective side sections are not rendered.
-  const FuiHorizontalLayout({super.key, this.left, required this.main, this.right, this.classes = ''});
+  const HorizontalLayout({super.key, this.left, required this.main, this.right, this.classes = ''});
 
   /// Builds a component tree with a root `<section>` containing `<aside>`,
   /// `<main>`, and `<aside>` (for the right panel) based on which components are provided.
   @override
   Component build(BuildContext context) {
     return section(classes: 'absolute inset-0 flex flex-row', [
-      if (left != null) jaspr.aside([left!], classes: 'h-full flex-grow-0 flex-shrink-0 overflow-hidden relative'),
-      main_(main, classes: 'h-full flex-grow flex-shrink overflow-auto relative'),
-      if (right != null) jaspr.aside([right!], classes: 'h-full flex-grow-0 flex-shrink-0 overflow-hidden relative'),
+      if (left != null) jaspr.aside([left!], classes: 'h-full flex-grow-0 flex-shrink-0 relative'),
+      main_(main, classes: 'h-full flex-grow flex-shrink relative'),
+      if (right != null) jaspr.aside([right!], classes: 'h-full flex-grow-0 flex-shrink-0 relative'),
     ]);
   }
 }
