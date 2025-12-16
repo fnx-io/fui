@@ -13,31 +13,30 @@ class Button extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return switch (action) {
-      ButtonAction() => _renderButton(context),
-      GroupAction() => _renderGroup(context),
+      Action(isDisabled: true) => _renderDisabled(context, action, classes),
+      ButtonAction() => _renderButton(context, action as ButtonAction, classes),
+      GroupAction() => _renderGroup(context, action as GroupAction, classes),
     };
   }
 
-  Component _renderGroup(BuildContext context) {
-    final g = action as GroupAction;
+  static Component _renderGroup(BuildContext context, GroupAction g, String classes) {
     return Dropdown(
       label: [
         ...Label.buildLabel(g.label),
         span(
           [Icons.moreDots()],
-          classes: "ml-1 pl-2 mr-[2px] border-divider border-l fui-icon ",
+          classes: " ml-1 pl-2 mr-[2px] border-divider border-l fui-icon ",
         ),
       ],
       labelClasses: "inline-flex ${FuiStyles.labelParent} ${FuiStyles.buttonShape} $classes",
       dropdown: [
-        VerticalMenu(items: action.children),
+        VerticalMenu(items: g.children),
       ],
       dropdownClasses: " ml-2 mt-2 ${FuiStyles.dropDownShape} ",
     );
   }
 
-  Component _renderButton(BuildContext context) {
-    final b = action as ButtonAction;
+  static Component _renderButton(BuildContext context, ButtonAction b, String classes) {
     return button(
       [
         ...Label.buildLabel(b.label),
@@ -47,6 +46,15 @@ class Button extends StatelessComponent {
       events: {
         if (b.onClick != null) "onClick": b.onClick!,
       },
+    );
+  }
+
+  static Component _renderDisabled(BuildContext context, Action action, String classes) {
+    return span(
+      [
+        ...Label.buildLabel(action.label),
+      ],
+      classes: " inline-flex ${FuiStyles.labelParent} ${FuiStyles.buttonShape} $classes disabled ",
     );
   }
 }

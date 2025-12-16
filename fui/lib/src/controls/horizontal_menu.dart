@@ -14,7 +14,7 @@ class HorizontalMenu extends StatelessComponent {
     // Basic skeleton only; implementation will be added later
     return ul(
       classes:
-          " relative list-none inline-flex items-center align-middle divide-x divide-divider ${FuiStyles.buttonShape}$classes",
+          " relative list-none inline-flex items-center align-middle divide-x divide-divider ${FuiStyles.buttonShape} $classes",
       items.map((item) => li(classes: " inline ", [_buildItem(context, item)])).toList(),
     );
   }
@@ -36,7 +36,7 @@ class HorizontalMenu extends StatelessComponent {
           classes: "ml-1 pl-2 mr-[2px] border-divider border-l fui-icon ",
         ),
       ],
-      labelClasses: "inline-flex ${FuiStyles.labelParent} ",
+      labelClasses: " inline-flex ${FuiStyles.labelParent} ",
       dropdown: [
         VerticalMenu(items: action.children),
       ],
@@ -51,7 +51,7 @@ class HorizontalMenu extends StatelessComponent {
         ...Label.buildLabel(b.label),
       ],
       disabled: b.onClick != null,
-      classes: "inline-flex ${FuiStyles.labelParent} $classes",
+      classes: " inline-flex ${FuiStyles.labelParent} $classes",
       events: {
         if (b.onClick != null) "onClick": b.onClick!,
       },
