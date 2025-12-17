@@ -16,6 +16,7 @@ class Button extends StatelessComponent {
       Action(isDisabled: true) => _renderDisabled(context, action, classes),
       ButtonAction() => _renderButton(context, action as ButtonAction, classes),
       GroupAction() => _renderGroup(context, action as GroupAction, classes),
+      LinkAction() => _renderLink(context, action as LinkAction, classes),
     };
   }
 
@@ -28,11 +29,21 @@ class Button extends StatelessComponent {
           classes: " ml-1 pl-2 mr-[2px] border-divider border-l fui-icon ",
         ),
       ],
-      labelClasses: "inline-flex ${FuiStyles.labelParent} ${FuiStyles.buttonShape} $classes",
+      labelClasses: "${FuiStyles.labelParent} ${FuiStyles.buttonShape} $classes",
       dropdown: [
         VerticalMenu(items: g.children),
       ],
-      dropdownClasses: " ml-2 mt-2 ${FuiStyles.dropDownShape} ",
+      dropdownClasses: " ml-2 mt-2 min-w-80 max-w-120 ${FuiStyles.dropDownShape} ",
+    );
+  }
+
+  static Component _renderLink(BuildContext context, LinkAction b, String classes) {
+    return a(
+      [
+        ...Label.buildLabel(b.label),
+      ],
+      href: b.href ?? '',
+      classes: "${FuiStyles.labelParent} ${FuiStyles.buttonShape} $classes",
     );
   }
 
@@ -41,8 +52,7 @@ class Button extends StatelessComponent {
       [
         ...Label.buildLabel(b.label),
       ],
-      disabled: b.onClick != null,
-      classes: "inline-flex ${FuiStyles.labelParent} ${FuiStyles.buttonShape} $classes",
+      classes: "${FuiStyles.labelParent} ${FuiStyles.buttonShape} $classes",
       events: {
         if (b.onClick != null) "onClick": b.onClick!,
       },
@@ -54,7 +64,7 @@ class Button extends StatelessComponent {
       [
         ...Label.buildLabel(action.label),
       ],
-      classes: " inline-flex ${FuiStyles.labelParent} ${FuiStyles.buttonShape} $classes disabled ",
+      classes: " ${FuiStyles.labelParent} ${FuiStyles.buttonShape} $classes disabled ",
     );
   }
 }

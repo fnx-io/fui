@@ -22,6 +22,20 @@ class ButtonAction extends Action {
   ButtonAction.fromLabel({required this.label, this.onClick});
 }
 
+class LinkAction extends Action {
+  @override
+  final Label label;
+
+  final String? href;
+
+  @override
+  bool get isDisabled => href == null;
+
+  LinkAction({required String text, Component? icon, required this.href}) : label = Label(text: text, icon: icon);
+
+  LinkAction.fromLabel({required this.label, required this.href});
+}
+
 class GroupAction extends Action {
   @override
   final Label label;

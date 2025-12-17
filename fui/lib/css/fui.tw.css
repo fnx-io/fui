@@ -51,7 +51,7 @@
     .fui-menu_detail[open] > summary .fui-icon:last-of-type {
         @apply rotate-90 duration-300;
     }
-    .fui-hill {
+    .fui-convex-shape {
         background: linear-gradient(180deg, rgba(255,255,255,0.3) 0, transparent 20%, transparent 80%, rgba(0,0,0,0.1) 100%);
     }
 }

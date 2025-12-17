@@ -11,7 +11,6 @@ class HorizontalMenu extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Basic skeleton only; implementation will be added later
     return ul(
       classes:
           " relative list-none inline-flex items-center align-middle divide-x divide-divider ${FuiStyles.buttonShape} $classes",
@@ -23,6 +22,7 @@ class HorizontalMenu extends StatelessComponent {
     return switch (action) {
       ButtonAction() => _renderButton(context, action),
       GroupAction() => _renderGroup(context, action),
+      LinkAction() => _renderLink(context, action),
     };
   }
 
@@ -36,25 +36,33 @@ class HorizontalMenu extends StatelessComponent {
           classes: "ml-1 pl-2 mr-[2px] border-divider border-l fui-icon ",
         ),
       ],
-      labelClasses: " inline-flex ${FuiStyles.labelParent} ",
+      labelClasses: " ${FuiStyles.labelParent} ",
       dropdown: [
         VerticalMenu(items: action.children),
       ],
-      dropdownClasses: " ml-2 mt-2 ${FuiStyles.dropDownShape} ",
+      dropdownClasses: " ml-2 mt-2 min-w-80 max-w-120 ${FuiStyles.dropDownShape} ",
     );
   }
 
-  Component _renderButton(BuildContext context, Action action) {
-    final b = action as ButtonAction;
+  static Component _renderButton(BuildContext context, ButtonAction b) {
     return button(
       [
         ...Label.buildLabel(b.label),
       ],
-      disabled: b.onClick != null,
-      classes: " inline-flex ${FuiStyles.labelParent} $classes",
+      classes: " ${FuiStyles.labelParent} ",
       events: {
         if (b.onClick != null) "onClick": b.onClick!,
       },
+    );
+  }
+
+  static Component _renderLink(BuildContext context, LinkAction l) {
+    return a(
+      [
+        ...Label.buildLabel(l.label),
+      ],
+      href: l.href ?? "#",
+      classes: " ${FuiStyles.labelParent} ",
     );
   }
 }

@@ -7,6 +7,8 @@ class VerticalMenu extends StatelessComponent {
   final List<Action> items;
   final String classes;
 
+  static const _itemClasses = " w-full cursor-pointer hover:bg-light text-left ";
+
   const VerticalMenu({super.key, required this.items, this.classes = ''});
 
   @override
@@ -22,8 +24,40 @@ class VerticalMenu extends StatelessComponent {
     return switch (action) {
       Action(isDisabled: true) => _renderDisabled(context, action),
       ButtonAction() => _renderButton(context, action),
+      LinkAction() => _renderLink(context, action),
       GroupAction() => _renderGroup(context, action),
     };
+  }
+
+  static Component _renderDisabled(BuildContext context, Action action) {
+    return span(
+      [
+        ...Label.buildLabel(action.label),
+      ],
+      classes: " ${FuiStyles.labelParent} disabled ",
+    );
+  }
+
+  static Component _renderButton(BuildContext context, ButtonAction b) {
+    return button(
+      [
+        ...Label.buildLabel(b.label),
+      ],
+      classes: "${FuiStyles.labelParent} $_itemClasses",
+      events: {
+        if (b.onClick != null) "onClick": b.onClick!,
+      },
+    );
+  }
+
+  static Component _renderLink(BuildContext context, LinkAction b) {
+    return a(
+      [
+        ...Label.buildLabel(b.label),
+      ],
+      href: b.href ?? '#',
+      classes: "${FuiStyles.labelParent} $_itemClasses ",
+    );
   }
 
   static Component _renderGroup(BuildContext context, GroupAction g) {
@@ -35,32 +69,10 @@ class VerticalMenu extends StatelessComponent {
             ...Label.buildLabel(g.label),
             span([Icons.moreChevron()], classes: "fui-icon ml-1 "),
           ],
-          classes: ' inline-flex w-full ${FuiStyles.labelParent} cursor-pointer rounded-l hover:bg-light ',
+          classes: ' ${FuiStyles.labelParent} $_itemClasses',
         ),
         VerticalMenu(items: g.children, classes: 'ml-7'),
       ],
-    );
-  }
-
-  static Component _renderButton(BuildContext context, ButtonAction b) {
-    return button(
-      [
-        ...Label.buildLabel(b.label),
-      ],
-      disabled: b.onClick != null,
-      classes: "inline-flex ${FuiStyles.labelParent}",
-      events: {
-        if (b.onClick != null) "onClick": b.onClick!,
-      },
-    );
-  }
-
-  static Component _renderDisabled(BuildContext context, Action action) {
-    return span(
-      [
-        ...Label.buildLabel(action.label),
-      ],
-      classes: " inline-flex ${FuiStyles.labelParent} disabled ",
     );
   }
 }
