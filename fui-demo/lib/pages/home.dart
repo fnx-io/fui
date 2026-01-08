@@ -10,7 +10,11 @@ class Home extends StatelessComponent {
       text: "I'm a group",
       icon: Icon(MaterialIcons.icon_add_location_alt),
       children: [
-        LinkAction(text: "Sub LinkAction 1", href: "https://example1.com"),
+        LinkAction(
+          text: "Sub LinkAction 1",
+          href: "https://example1.com",
+          icon: Icon(MaterialIcons.icon_delivery_dining),
+        ),
         LinkAction(text: "Sub LinkAction 2", href: "https://example2.com"),
         GroupAction(
           text: "I'm sub group",
@@ -26,9 +30,9 @@ class Home extends StatelessComponent {
         ButtonAction(text: "Disabled", icon: Icon(MaterialIcons.icon_add_road)),
       ],
     ),
-    ButtonAction(text: "Button 1", onClick: (_) {}),
+    ButtonAction(text: "Button 1", onClick: (_) {}, icon: Icon(MaterialIcons.icon_delivery_dining)),
     ButtonAction(text: "Button 2", onClick: (_) {}),
-    LinkAction(text: "Link 1", href: "https://example1.com"),
+    LinkAction(text: "Link 1", href: "https://example1.com", icon: Icon(MaterialIcons.icon_delivery_dining)),
     ButtonAction(text: "Disabled", icon: Icon(MaterialIcons.icon_add_road)),
   ];
 
@@ -52,7 +56,7 @@ class Home extends StatelessComponent {
   }
 
   Component buildContent(BuildContext context) {
-    return div(classes: "m2", [
+    return div(classes: "m2 space-y-4", [
       div(
         classes: "space-x-2",
         List.generate(
@@ -64,12 +68,16 @@ class Home extends StatelessComponent {
         classes: "space-x-2",
         menuActions.map((a) => Button(a)).toList(),
       ),
+      div(
+        classes: "space-x-2",
+        menuActions.map((a) => IconButton(a)).toList(),
+      ),
       div([
         HorizontalMenu(items: menuActions),
-      ], classes: "my-5 "),
+      ]),
       div([
         VerticalMenu(classes: "w-70 bg-white", items: menuActions),
-      ], classes: "my-5 "),
+      ]),
       // div(
       //   classes: "my-10",
       //   [

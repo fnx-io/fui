@@ -2,6 +2,9 @@ import 'package:jaspr/jaspr.dart';
 
 int _sequence = 0;
 
+/// A dropdown component consisting of a button that toggles the visibility of a dropdown menu.
+/// It's implemented using <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover">HTML popover</a> functionality.
+///
 class Dropdown extends StatefulComponent {
   final List<Component> label;
   final String labelClasses;

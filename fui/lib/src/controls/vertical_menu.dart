@@ -3,6 +3,9 @@ import 'package:fui/src/core/fui_styles.dart';
 import 'package:fui/src/core/icons.dart';
 import 'package:jaspr/jaspr.dart';
 
+/// Renders a vertical menu (a "list" of buttons) from a list of [Action]s. It's used to render dropdown menus and sidebars.
+/// Note: Your can combine different Action types within the same menu - [ButtonAction]s, [LinkAction]s, and [GroupAction]s can all be used together.
+///
 class VerticalMenu extends StatelessComponent {
   final List<Action> items;
   final String classes;

@@ -3,15 +3,17 @@ import 'package:fui/src/core/fui_styles.dart';
 import 'package:fui/src/core/icons.dart';
 import 'package:jaspr/jaspr.dart';
 
-/// Renders and [Action] as a button. Underlaying HTML element depends on the type of action, it might be a
-/// button, link, or dropdown menu, however the visual appearance is always button-like.
+/// Renders an [Action] as an icon button. Underlaying HTML element depends on the type of action, it might be a
+/// button, link, or dropdown menu, however the visual appearance is always that of an icon.
 ///
-class Button extends StatelessComponent {
+class IconButton extends StatelessComponent {
   final Action action;
   final String classes;
   final Variant variant;
 
-  const Button(this.action, {super.key, this.classes = '', this.variant = Variant.light});
+  static const String _classes = "size-9 p-2 inline-block text-center cursor-pointer hover:bg-light rounded-full";
+
+  const IconButton(this.action, {super.key, this.classes = '', this.variant = Variant.light});
 
   @override
   Component build(BuildContext context) {
@@ -26,13 +28,12 @@ class Button extends StatelessComponent {
   static Component _renderGroup(BuildContext context, GroupAction g, String classes) {
     return Dropdown(
       label: [
-        ...Label.buildLabel(g.label),
         span(
           [Icons.moreDots()],
-          classes: " ml-1 pl-2 mr-[2px] border-divider border-l fui-icon ",
+          classes: " fui-icon ",
         ),
       ],
-      labelClasses: "${FuiStyles.labelParent} ${FuiStyles.buttonShape} $classes",
+      labelClasses: "$_classes $classes",
       dropdown: [
         VerticalMenu(items: g.children),
       ],
@@ -43,20 +44,20 @@ class Button extends StatelessComponent {
   static Component _renderLink(BuildContext context, LinkAction b, String classes) {
     return a(
       [
-        ...Label.buildLabel(b.label),
+        ...Label.buildIcon(b.label),
       ],
       href: b.href ?? '',
       target: b.target,
-      classes: "${FuiStyles.labelParent} ${FuiStyles.buttonShape} $classes",
+      classes: "$_classes $classes",
     );
   }
 
   static Component _renderButton(BuildContext context, ButtonAction b, String classes) {
     return button(
       [
-        ...Label.buildLabel(b.label),
+        ...Label.buildIcon(b.label),
       ],
-      classes: "${FuiStyles.labelParent} ${FuiStyles.buttonShape} $classes",
+      classes: "$_classes $classes",
       events: {
         if (b.onClick != null) "onClick": b.onClick!,
       },
@@ -66,9 +67,9 @@ class Button extends StatelessComponent {
   static Component _renderDisabled(BuildContext context, Action action, String classes) {
     return span(
       [
-        ...Label.buildLabel(action.label),
+        ...Label.buildIcon(action.label),
       ],
-      classes: " ${FuiStyles.labelParent} ${FuiStyles.buttonShape} $classes disabled ",
+      classes: "$_classes $classes disabled ",
     );
   }
 }

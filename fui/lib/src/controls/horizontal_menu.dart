@@ -3,6 +3,8 @@ import 'package:fui/src/core/fui_styles.dart';
 import 'package:fui/src/core/icons.dart';
 import 'package:jaspr/jaspr.dart';
 
+/// Renders a horizontal menu (a "bar" of buttons) from a list of [Action]s.
+///
 class HorizontalMenu extends StatelessComponent {
   final List<Action> items;
   final String classes;
@@ -20,10 +22,20 @@ class HorizontalMenu extends StatelessComponent {
 
   Component _buildItem(BuildContext context, Action action) {
     return switch (action) {
+      Action(isDisabled: true) => _renderDisabled(context, action, classes),
       ButtonAction() => _renderButton(context, action),
       GroupAction() => _renderGroup(context, action),
       LinkAction() => _renderLink(context, action),
     };
+  }
+
+  static Component _renderDisabled(BuildContext context, Action action, String classes) {
+    return span(
+      [
+        ...Label.buildLabel(action.label),
+      ],
+      classes: " ${FuiStyles.labelParent} $classes disabled ",
+    );
   }
 
   Component _renderGroup(BuildContext context, Action action) {
@@ -62,6 +74,7 @@ class HorizontalMenu extends StatelessComponent {
         ...Label.buildLabel(l.label),
       ],
       href: l.href ?? "#",
+      target: l.target,
       classes: " ${FuiStyles.labelParent} ",
     );
   }

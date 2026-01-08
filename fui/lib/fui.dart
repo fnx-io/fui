@@ -6,6 +6,7 @@ export 'src/layout/horizontal_layout.dart';
 export 'src/layout/vertical_layout.dart';
 export 'src/layout/card.dart';
 
+export 'src/controls/icon_button.dart';
 export 'src/controls/button.dart';
 export 'src/controls/dropdown.dart';
 export 'src/controls/vertical_menu.dart';

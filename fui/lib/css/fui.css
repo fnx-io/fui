@@ -219,9 +219,6 @@
       max-width: 96rem;
     }
   }
-  .my-5 {
-    margin-block: calc(var(--spacing) * 5);
-  }
   .my-10 {
     margin-block: calc(var(--spacing) * 10);
   }
@@ -243,9 +240,6 @@
   .block {
     display: block;
   }
-  .contents {
-    display: contents;
-  }
   .flex {
     display: flex;
   }
@@ -261,6 +255,10 @@
   .table {
     display: table;
   }
+  .size-9 {
+    width: calc(var(--spacing) * 9);
+    height: calc(var(--spacing) * 9);
+  }
   .h-full {
     height: 100%;
   }
@@ -270,14 +268,8 @@
   .w-40 {
     width: calc(var(--spacing) * 40);
   }
-  .w-50 {
-    width: calc(var(--spacing) * 50);
-  }
   .w-70 {
     width: calc(var(--spacing) * 70);
-  }
-  .w-80 {
-    width: calc(var(--spacing) * 80);
   }
   .w-full {
     width: 100%;
@@ -340,6 +332,13 @@
       margin-block-end: calc(calc(var(--spacing) * 1) * calc(1 - var(--tw-space-y-reverse)));
     }
   }
+  .space-y-4 {
+    :where(& > :not(:last-child)) {
+      --tw-space-y-reverse: 0;
+      margin-block-start: calc(calc(var(--spacing) * 4) * var(--tw-space-y-reverse));
+      margin-block-end: calc(calc(var(--spacing) * 4) * calc(1 - var(--tw-space-y-reverse)));
+    }
+  }
   .space-x-2 {
     :where(& > :not(:last-child)) {
       --tw-space-x-reverse: 0;
@@ -369,6 +368,9 @@
   .rounded {
     border-radius: 0.25rem;
   }
+  .rounded-full {
+    border-radius: calc(infinity * 1px);
+  }
   .rounded-lg {
     border-radius: var(--radius-lg);
   }
@@ -377,10 +379,6 @@
     border-bottom-left-radius: 0.25rem;
   }
   .border {
-    border-style: var(--tw-border-style);
-    border-width: 1px;
-  }
-  .border-1 {
     border-style: var(--tw-border-style);
     border-width: 1px;
   }
